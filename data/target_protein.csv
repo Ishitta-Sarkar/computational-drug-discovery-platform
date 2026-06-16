@@ -1,0 +1,5 @@
+target_id,target_name,biological_role,disease
+T001,ACE2,Cell surface receptor,Cardiovascular Disease
+T002,PPARG,Metabolic regulation,Diabetes
+T003,APP,Amyloid precursor protein,Alzheimer Disease
+T004,SNCA,Alpha-synuclein regulation,Parkinson Disease
