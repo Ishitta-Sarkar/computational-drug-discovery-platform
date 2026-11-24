@@ -1,0 +1,38 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "druglikeness"
+version = "0.2.0"
+description = "Lipinski, Veber, QED and PAINS screening of ligands from PubChem SMILES."
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Ishitta Sarkar" }]
+dependencies = [
+    "rdkit==2026.9.2",
+    "matplotlib==3.11.2",
+    "numpy==2.5.5",
+]
+
+[project.optional-dependencies]
+dev = ["pytest==9.2.0", "ruff==0.17.6"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+src = ["src", "tests", "scripts", "main.py"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "W", "UP"]
+
+[tool.ruff.lint.per-file-ignores]
+"main.py" = ["E402"]
+"scripts/fetch_pubchem.py" = ["E402"]

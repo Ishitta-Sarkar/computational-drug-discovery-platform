@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+title: Ligand drug-likeness and pre-docking screen
+message: If you use this software, please cite it using the metadata from this file.
+type: software
+authors:
+  - family-names: Sarkar
+    given-names: Ishitta
+    orcid: "https://orcid.org/0009-0008-1028-6010"
+repository-code: "https://github.com/Ishitta-Sarkar/computational-drug-discovery-platform"
+license: MIT
+version: 0.2.0
+date-released: "2026-11-24"
+keywords:
+  - cheminformatics
+  - lipinski-rule-of-five
+  - virtual-screening
+  - learning-project
+  - python

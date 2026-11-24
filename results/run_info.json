@@ -1,0 +1,10 @@
+{
+  "rdkit_version": "2026.09.2",
+  "n_compounds": 6,
+  "cache_retrieved_on": "2026-11-24",
+  "cache_request_url": "https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5280343,969516,445154,65064,5280445,5280805/property/Title,IUPACName,MolecularFormula,InChI,InChIKey,SMILES,ConnectivitySMILES/JSON",
+  "library": "data/ligands.csv",
+  "cache": "data/pubchem_compounds.json",
+  "results_csv": "results/screen_results.csv",
+  "figure": "figures/druglikeness_overview.png"
+}
