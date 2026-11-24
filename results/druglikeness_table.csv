@@ -1,0 +1,7 @@
+compound_name,pubchem_cid,molecular_formula,smiles,molecular_weight,crippen_logp,hbd,hba,tpsa,rotatable_bonds,qed,lipinski_violations,veber_violations,lipinski_pass,veber_pass,qed_pass,retained,pubchem_molecular_weight,pubchem_xlogp,pubchem_tpsa,pubchem_hbd,pubchem_hba,pubchem_rotatable_bonds
+Quercetin,5280343,C15H10O7,C1=CC(=C(C=C1C2=C(C(=O)C3=C(C=C(C=C3O2)O)O)O)O)O,302.2380000000,1.9880000000,5,7,131.3600000000,1,0.4341904403,,,true,true,false,false,302.23,1.5,127.0,5,7,1
+Curcumin,969516,C21H20O6,COC1=C(C=CC(=C1)/C=C/C(=O)CC(=O)/C=C/C2=CC(=C(C=C2)O)OC)O,368.3850000000,3.3699000000,2,6,93.0600000000,8,0.5481228321,,,true,true,true,true,368.4,3.2,93.1,2,6,8
+Resveratrol,445154,C14H12O3,C1=CC(=CC=C1/C=C/C2=CC(=CC(=C2)O)O)O,228.2470000000,2.9738000000,3,3,60.6900000000,2,0.6923408487,,,true,true,true,true,228.24,3.1,60.7,3,3,2
+Epigallocatechin gallate,65064,C22H18O11,C1[C@H]([C@H](OC2=CC(=CC(=C21)O)O)C3=CC(=C(C(=C3)O)O)O)OC(=O)C4=CC(=C(C(=C4)O)O)O,458.3750000000,2.2332000000,8,11,197.3700000000,4,0.2115032367,hbd;hba,tpsa,false,false,false,false,458.4,1.2,197.0,8,11,4
+Luteolin,5280445,C15H10O6,C1=CC(=C(C=C1C2=CC(=O)C3=C(C=C(C=C3O2)O)O)O)O,286.2390000000,2.2824000000,4,6,111.1300000000,1,0.5106223468,,,true,true,true,true,286.24,1.4,107.0,4,6,1
+Rutin,5280805,C27H30O16,C[C@H]1[C@@H]([C@H]([C@H]([C@@H](O1)OC[C@@H]2[C@H]([C@@H]([C@H]([C@@H](O2)OC3=C(OC4=CC(=CC(=C4C3=O)O)O)C5=CC(=C(C=C5)O)O)O)O)O)O)O)O,610.5210000000,-1.6871000000,10,16,269.4300000000,6,0.1395178432,molecular_weight;hbd;hba,tpsa,false,false,false,false,610.5,-1.3,266.0,10,16,6

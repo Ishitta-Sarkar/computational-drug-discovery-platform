@@ -1,0 +1,61 @@
+Ligand drug-likeness screen
+================================
+
+Question
+--------
+Which of these six natural products pass Lipinski, Veber and a QED cutoff of 0.5 when every descriptor is calculated from the structure PubChem returns for its CID?
+
+Data
+----
+Source: PubChem PUG REST compound property table.
+Retrieved (UTC): 2026-11-24T16:14:46+00:00
+Request: https://pubchem.ncbi.nlm.nih.gov/rest/pug/compound/cid/5280343,969516,445154,65064,5280445,5280805/property/Title,IUPACName,SMILES,MolecularFormula,MolecularWeight,XLogP,TPSA,HBondDonorCount,HBondAcceptorCount,RotatableBondCount/JSON
+RDKit: 2026.09.2
+The SMILES string is the only structural input. Molecular weight, Crippen logP, hydrogen-bond counts, TPSA, rotatable bonds and QED are calculated from that string. PubChem's own property numbers are stored beside them and are not used to pass or fail a ligand.
+
+Rules
+-----
+Lipinski, pass = zero violations: molecular weight <= 500, Crippen logP <= 5, hydrogen-bond donors <= 5, hydrogen-bond acceptors <= 10.
+Veber, pass = zero violations: TPSA <= 140 Å², rotatable bonds <= 10.
+QED pass: QED >= 0.5. QED is a continuous score (Bickerton et al., 2012). The 0.5 line is a cutoff chosen for this screen, not a threshold from that paper.
+Retained: Lipinski, Veber and the QED cutoff all pass.
+Rotatable bonds follow Veber et al. (2002): single non-ring bonds between non-terminal heavy atoms, amide C-N bonds excluded, esters counted. RDKit's strict rotatable-bond count also drops esters and is the count inside QED. It is not the Veber column in this table.
+
+Results
+-------
+Ligand                    MW      logP   HBD  HBA  TPSA    RotB  QED    Lipinski  Veber  QED>=0.5  Retained
+------------------------  ------  -----  ---  ---  ------  ----  -----  --------  -----  --------  --------
+Quercetin                 302.24  1.99   5    7    131.36  1     0.434  pass      pass   fail      no
+Curcumin                  368.39  3.37   2    6    93.06   8     0.548  pass      pass   pass      yes
+Resveratrol               228.25  2.97   3    3    60.69   2     0.692  pass      pass   pass      yes
+Epigallocatechin gallate  458.38  2.23   8    11   197.37  4     0.212  fail      fail   fail      no
+Luteolin                  286.24  2.28   4    6    111.13  1     0.511  pass      pass   pass      yes
+Rutin                     610.52  -1.69  10   16   269.43  6     0.140  fail      fail   fail      no
+
+Retained: Curcumin, Resveratrol, Luteolin.
+Not retained: Quercetin, Epigallocatechin gallate, Rutin.
+
+No ligand in this set has exactly one Lipinski violation. Allowing one violation, which is how the rule of five is often applied, would not change who passes Lipinski here. The workflow still requires zero violations, and the violation list shows how large each failure is.
+
+Rutin
+-----
+Rutin is quercetin-3-O-rutinoside: the flavonol quercetin with a rutinose disaccharide on the 3-hydroxy group. The two rows are the same core with and without that sugar.
+Quercetin passes Lipinski (MW 302.24, Crippen logP 1.99, HBD 5, HBA 7) and Veber (TPSA 131.36, rotatable bonds 1).
+Rutin fails Lipinski on molecular weight, hydrogen-bond donors and hydrogen-bond acceptors. MW is 610.52 (cutoff 500), hydrogen-bond donors are 10 (cutoff 5) and acceptors are 16 (cutoff 10). Crippen logP is -1.69, which is inside the Lipinski logP limit. The failures are size and hydrogen bonding, not lipophilicity.
+Veber fails on TPSA (269.43 against a cutoff of 140). Rotatable bonds are 6, within the limit of 10. QED falls from 0.434 for quercetin to 0.140 for rutin.
+The disaccharide is what crosses the cutoffs. These rules compare the intact structure with property ranges associated with oral drugs. They do not measure whether rutin binds a protein, and they do not say whether the sugar is cleaved before absorption. A glycoside can be a reasonable natural-product sample and a poor match to Lipinski's oral ranges at the same time.
+An earlier version of this repository sorted the same six names by one docking_score column and printed rutin first. The column had no target, and the summary never said that rutin fails Lipinski. That column has been removed. A docking score answers a different question from these filters, and only after a documented ligand-target calculation.
+
+Where the filters disagree
+--------------------------
+Epigallocatechin gallate is the other Lipinski failure, and it is not a glycoside. RDKit counts 8 donors and 11 acceptors, TPSA is 197.37, and QED is 0.212. The gallate and the polyphenol pattern are enough to leave the oral ranges. Passing is not the default for a well-known natural product in this set.
+Quercetin is the awkward middle case. It passes Lipinski and Veber, but QED is 0.434, below the 0.5 cutoff used here, so it is not retained. Luteolin, which lacks the 3-hydroxy group, has QED 0.511 and is retained. Curcumin has QED 0.548. Those three scores sit close to a line this workflow chose. They should not be read as a sharp separation into drugs and non-drugs.
+
+PubChem property check
+----------------------
+Applying the same numeric cutoffs to PubChem's XLogP, TPSA, hydrogen-bond counts and rotatable-bond counts gives the same Lipinski call and the same Veber call for all 6 ligands. Hydrogen-bond donor and acceptor counts match PubChem for every ligand. The largest Crippen-versus-XLogP gap is 1.03 for Epigallocatechin gallate (2.23 versus 1.20). The largest TPSA gap is 4.36 Å² for Quercetin (131.36 versus 127.00). Rotatable-bond counts match PubChem for every ligand. The largest average-mass gap is 0.025 Da for Epigallocatechin gallate (458.375 versus 458.400). None of those reference numbers is an input to the decision.
+
+Scope
+-----
+This is a ligand drug-likeness screen of a fixed six-compound learning set. It does not dock, it does not rank binding, and it does not claim activity against ACE2, PPARG, APP, SNCA or any other protein. A docking score is defined for one ligand-target pair from a documented calculation. No such calculation is in this repository.
+Lipinski's 1997 analysis set aside antibiotics, antifungals, vitamins and cardiac glycosides, many of which are taken up by transporters. A glycosylated flavonoid falling outside the cutoffs is consistent with that scope. The filters estimate resemblance to oral drugs. They are not a reason, by themselves, to discard a natural product from biological study.
