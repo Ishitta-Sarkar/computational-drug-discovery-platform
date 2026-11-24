@@ -23,7 +23,8 @@ where = ["src"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
-pythonpath = ["src"]
+# "." is the repository root, so tests can import main.py. "src" holds the package.
+pythonpath = [".", "src"]
 
 [tool.ruff]
 line-length = 100

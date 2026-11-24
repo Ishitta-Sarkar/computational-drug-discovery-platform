@@ -18,6 +18,10 @@
 - PubChem cache with request URL and retrieval date, checked against RDKit InChIKeys.
 - Tests, Ruff lint, GitHub Actions CI, pinned requirements, CITATION.cff, and a figure written by the screen.
 
+### Fixed
+
+- Pytest can import `main.py` when it is launched from another working directory, which is how the CI job runs it.
+
 ## [0.1.0] - 2026-06-16
 
 Initial ligand table with hand-typed descriptors and a single docking score per ligand.
